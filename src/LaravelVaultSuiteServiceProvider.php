@@ -4,7 +4,6 @@ namespace Deepdigs\LaravelVaultSuite;
 
 use Deepdigs\LaravelVaultSuite\Commands\VaultEnableSecretsEngineCommand;
 use Deepdigs\LaravelVaultSuite\Commands\VaultUnsealCommand;
-use Deepdigs\LaravelVaultSuite\LaravelVaultSuite;
 use Deepdigs\LaravelVaultSuite\Managers\VaultSuiteManager;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
