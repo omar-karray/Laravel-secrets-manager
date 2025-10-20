@@ -1,0 +1,31 @@
+site_name: Laravel Secrets Manager
+site_description: Pro-grade secrets management tooling for Laravel backed by Vault and OpenBao.
+site_url: https://omar-karray.github.io/Laravel-secrets-manager/
+repo_url: https://github.com/omar-karray/Laravel-secrets-manager
+repo_name: omar-karray/Laravel-secrets-manager
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+nav:
+  - Introduction: index.md
+  - Getting Started: getting-started.md
+  - Operations:
+      - Artisan Commands: commands.md
+  - Architecture: context.md
+  - Integrations:
+      - RawDigs Core App: integration/rawdigs-core-app.md
+  - Deployment: deployment.md
+  - Changelog: changelog.md
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - fenced_code
+  - tables
+plugins:
+  - search

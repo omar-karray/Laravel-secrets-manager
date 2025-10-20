@@ -1,24 +1,29 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "deepdigs/laravel-secrets-manager",
+    "description": "Secrets management integration for Laravel backed by Vault, OpenBao, and other providers.",
     "keywords": [
-        ":vendor_name",
+        "deepdigs",
+        "vault",
         "laravel",
-        ":package_slug"
+        "secrets",
+        "openbao",
+        "laravel-secrets-manager"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/omar-karray/Laravel-secrets-manager",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Omar Karray",
+            "email": "omarkarray@riseup.net",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^8.4",
+        "php": "^8.2",
         "spatie/laravel-package-tools": "^1.16",
-        "illuminate/contracts": "^11.0||^12.0"
+        "illuminate/contracts": "^10.0|^11.0",
+        "illuminate/support": "^10.0|^11.0",
+        "illuminate/http": "^10.0|^11.0"
     },
     "require-dev": {
         "laravel/pint": "^1.14",
@@ -35,13 +40,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "Deepdigs\\LaravelSecretsManager\\": "src/",
+            "Deepdigs\\LaravelSecretsManager\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/",
+            "Deepdigs\\LaravelSecretsManager\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
@@ -63,10 +68,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Deepdigs\\LaravelSecretsManager\\LaravelSecretsManagerServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "LaravelSecretsManager": "Deepdigs\\LaravelSecretsManager\\Facades\\LaravelSecretsManager"
             }
         }
     },
