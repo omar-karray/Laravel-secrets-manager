@@ -1,12 +1,12 @@
 <?php
 
-namespace Deepdigs\LaravelSecretsManager;
+namespace Deepdigs\LaravelVaultSuite;
 
-use Deepdigs\LaravelSecretsManager\Contracts\SecretsDriver;
-use Deepdigs\LaravelSecretsManager\Managers\SecretsManagerManager;
+use Deepdigs\LaravelVaultSuite\Contracts\SecretsDriver;
+use Deepdigs\LaravelVaultSuite\Managers\SecretsManagerManager;
 use Illuminate\Support\Arr;
 
-class LaravelSecretsManager
+class LaravelVaultSuite
 {
     public function __construct(
         protected SecretsManagerManager $manager

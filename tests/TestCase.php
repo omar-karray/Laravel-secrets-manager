@@ -1,10 +1,10 @@
 <?php
 
-namespace Deepdigs\LaravelSecretsManager\Tests;
+namespace Deepdigs\LaravelVaultSuite\Tests;
 
-use Deepdigs\LaravelSecretsManager\LaravelSecretsManagerServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Deepdigs\LaravelVaultSuite\LaravelVaultSuiteServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -13,14 +13,14 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Deepdigs\\LaravelSecretsManager\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'Deepdigs\\LaravelVaultSuite\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 
     protected function getPackageProviders($app)
     {
         return [
-            LaravelSecretsManagerServiceProvider::class,
+            LaravelVaultSuiteServiceProvider::class,
         ];
     }
 

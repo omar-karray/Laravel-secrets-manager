@@ -1,15 +1,16 @@
 {
-    "name": "deepdigs/laravel-secrets-manager",
-    "description": "Secrets management integration for Laravel backed by Vault, OpenBao, and other providers.",
+    "name": "deepdigs/laravel-vault-suite",
+    "description": "Vault-powered secrets suite for Laravel with multi-backend support and operational tooling.",
     "keywords": [
         "deepdigs",
         "vault",
         "laravel",
         "secrets",
         "openbao",
-        "laravel-secrets-manager"
+        "vault",
+        "laravel-vault-suite"
     ],
-    "homepage": "https://github.com/omar-karray/Laravel-secrets-manager",
+    "homepage": "https://github.com/omar-karray/laravel-vault-suite",
     "license": "MIT",
     "authors": [
         {
@@ -41,13 +42,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Deepdigs\\LaravelSecretsManager\\": "src/",
-            "Deepdigs\\LaravelSecretsManager\\Database\\Factories\\": "database/factories/"
+            "Deepdigs\\LaravelVaultSuite\\": "src/",
+            "Deepdigs\\LaravelVaultSuite\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Deepdigs\\LaravelSecretsManager\\Tests\\": "tests/",
+            "Deepdigs\\LaravelVaultSuite\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
@@ -69,10 +70,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Deepdigs\\LaravelSecretsManager\\LaravelSecretsManagerServiceProvider"
+                "Deepdigs\\LaravelVaultSuite\\LaravelVaultSuiteServiceProvider"
             ],
             "aliases": {
-                "LaravelSecretsManager": "Deepdigs\\LaravelSecretsManager\\Facades\\LaravelSecretsManager"
+                "LaravelVaultSuite": "Deepdigs\\LaravelVaultSuite\\Facades\\LaravelVaultSuite"
             }
         }
     },

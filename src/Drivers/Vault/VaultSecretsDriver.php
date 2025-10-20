@@ -1,9 +1,9 @@
 <?php
 
-namespace Deepdigs\LaravelSecretsManager\Drivers\Vault;
+namespace Deepdigs\LaravelVaultSuite\Drivers\Vault;
 
-use Deepdigs\LaravelSecretsManager\Contracts\SecretsDriver;
-use Deepdigs\LaravelSecretsManager\Exceptions\SecretsManagerException;
+use Deepdigs\LaravelVaultSuite\Contracts\SecretsDriver;
+use Deepdigs\LaravelVaultSuite\Exceptions\VaultSuiteException;
 use Illuminate\Http\Client\Factory as HttpFactory;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
@@ -127,7 +127,7 @@ class VaultSecretsDriver implements SecretsDriver
             'list' => $version === 2
                 ? "/v1/{$mount}/metadata/{$path}"
                 : "/v1/{$mount}/{$path}",
-            default => throw new SecretsManagerException("Unsupported secrets operation [{$operation}]"),
+            default => throw new VaultSuiteException("Unsupported secrets operation [{$operation}]"),
         };
     }
 
@@ -192,6 +192,6 @@ class VaultSecretsDriver implements SecretsDriver
             return;
         }
 
-        throw SecretsManagerException::requestFailed($response);
+        throw VaultSuiteException::requestFailed($response);
     }
 }

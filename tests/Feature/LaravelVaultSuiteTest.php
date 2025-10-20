@@ -1,13 +1,13 @@
 <?php
 
-use Deepdigs\LaravelSecretsManager\Contracts\SecretsDriver;
-use Deepdigs\LaravelSecretsManager\Facades\LaravelSecretsManager;
-use Deepdigs\LaravelSecretsManager\LaravelSecretsManager as Manager;
+use Deepdigs\LaravelVaultSuite\Contracts\SecretsDriver;
+use Deepdigs\LaravelVaultSuite\Facades\LaravelVaultSuite;
+use Deepdigs\LaravelVaultSuite\LaravelVaultSuite as SuiteManager;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
 
 beforeEach(function () {
-    Config::set('secrets-manager.drivers.vault', [
+    Config::set('vault-suite.drivers.vault', [
         'address' => 'https://vault.test',
         'token' => 'test-token',
         'engine' => [
@@ -31,8 +31,8 @@ it('fetches secret data and specific keys', function () {
         ], 200),
     ]);
 
-    $data = LaravelSecretsManager::fetch('apps/laravel/database');
-    $password = LaravelSecretsManager::fetch('apps/laravel/database', 'password');
+    $data = LaravelVaultSuite::fetch('apps/laravel/database');
+    $password = LaravelVaultSuite::fetch('apps/laravel/database', 'password');
 
     expect($data)->toMatchArray([
         'username' => 'laravel',
@@ -51,16 +51,16 @@ it('writes, lists, and deletes secrets', function () {
         ], 200),
     ]);
 
-    $write = LaravelSecretsManager::put('apps/laravel/api', [
+    $write = LaravelVaultSuite::put('apps/laravel/api', [
         'token' => 'abc123',
     ]);
 
     expect($write)->toMatchArray(['version' => 1]);
 
-    $keys = LaravelSecretsManager::list('apps/laravel');
+    $keys = LaravelVaultSuite::list('apps/laravel');
     expect($keys)->toBe(['api/', 'database/']);
 
-    LaravelSecretsManager::delete('apps/laravel/api');
+    LaravelVaultSuite::delete('apps/laravel/api');
 
     Http::assertSentCount(3);
 });
@@ -96,10 +96,10 @@ it('exposes seal status helpers', function () {
         return Http::response([], 404);
     });
 
-    $status = LaravelSecretsManager::sealStatus();
+    $status = LaravelVaultSuite::sealStatus();
     expect($status['sealed'])->toBeTrue();
 
-    $unsealed = LaravelSecretsManager::unseal(['key-1', 'key-2', 'key-3'], ['reset' => true]);
+    $unsealed = LaravelVaultSuite::unseal(['key-1', 'key-2', 'key-3'], ['reset' => true]);
 
     expect($unsealed['sealed'])->toBeFalse();
     expect($captured)->not->toBeEmpty();
@@ -107,8 +107,8 @@ it('exposes seal status helpers', function () {
 });
 
 it('supports driver resolution via container alias', function () {
-    /** @var Manager $manager */
-    $manager = app(Manager::class);
+    /** @var SuiteManager $manager */
+    $manager = app(SuiteManager::class);
 
     expect($manager->driver())->toBeInstanceOf(SecretsDriver::class);
 });

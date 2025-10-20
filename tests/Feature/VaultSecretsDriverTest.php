@@ -1,7 +1,7 @@
 <?php
 
-use Deepdigs\LaravelSecretsManager\Drivers\Vault\VaultSecretsDriver;
-use Deepdigs\LaravelSecretsManager\Exceptions\SecretsManagerException;
+use Deepdigs\LaravelVaultSuite\Drivers\Vault\VaultSecretsDriver;
+use Deepdigs\LaravelVaultSuite\Exceptions\VaultSuiteException;
 use Illuminate\Http\Client\Factory as HttpFactory;
 use Illuminate\Support\Facades\Http;
 
@@ -182,5 +182,5 @@ it('throws exception when vault responds with error', function () {
     $driver = makeDriver();
 
     expect(fn () => $driver->read('apps/laravel/database'))
-        ->toThrow(SecretsManagerException::class, 'permission denied');
+        ->toThrow(VaultSuiteException::class, 'permission denied');
 });

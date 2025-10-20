@@ -1,11 +1,11 @@
 <?php
 
-namespace Deepdigs\LaravelSecretsManager\Exceptions;
+namespace Deepdigs\LaravelVaultSuite\Exceptions;
 
 use Illuminate\Http\Client\Response;
 use RuntimeException;
 
-class SecretsManagerException extends RuntimeException
+class VaultSuiteException extends RuntimeException
 {
     /**
      * Create an exception for a failed HTTP request.

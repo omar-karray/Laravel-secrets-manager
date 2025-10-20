@@ -1,6 +1,6 @@
 <?php
 
-use Deepdigs\LaravelSecretsManager\LaravelSecretsManager;
+use Deepdigs\LaravelVaultSuite\LaravelVaultSuite;
 use Mockery as M;
 
 use function Pest\Laravel\artisan;
@@ -9,9 +9,9 @@ it('reads unseal keys from a file when requested', function () {
     $tempFile = tempnam(sys_get_temp_dir(), 'vault-keys');
     file_put_contents($tempFile, "key-1\n# a comment\nkey-2\n");
 
-    $mock = M::mock(LaravelSecretsManager::class);
-    app()->instance(LaravelSecretsManager::class, $mock);
-    app()->alias(LaravelSecretsManager::class, 'secrets-manager');
+    $mock = M::mock(LaravelVaultSuite::class);
+    app()->instance(LaravelVaultSuite::class, $mock);
+    app()->alias(LaravelVaultSuite::class, 'laravel-vault-suite');
 
     $mock->shouldReceive('unseal')
         ->once()
@@ -34,9 +34,9 @@ it('reads unseal keys from a file when requested', function () {
 });
 
 it('fails when vault remains sealed after submitting keys', function () {
-    $mock = M::mock(LaravelSecretsManager::class);
-    app()->instance(LaravelSecretsManager::class, $mock);
-    app()->alias(LaravelSecretsManager::class, 'secrets-manager');
+    $mock = M::mock(LaravelVaultSuite::class);
+    app()->instance(LaravelVaultSuite::class, $mock);
+    app()->alias(LaravelVaultSuite::class, 'laravel-vault-suite');
 
     $mock->shouldReceive('unseal')
         ->once()
@@ -48,11 +48,11 @@ it('fails when vault remains sealed after submitting keys', function () {
 });
 
 it('fails when the provided key file cannot be read', function () {
-    $mock = M::mock(LaravelSecretsManager::class);
+    $mock = M::mock(LaravelVaultSuite::class);
     $mock->shouldNotReceive('unseal');
 
-    app()->instance(LaravelSecretsManager::class, $mock);
-    app()->alias(LaravelSecretsManager::class, 'secrets-manager');
+    app()->instance(LaravelVaultSuite::class, $mock);
+    app()->alias(LaravelVaultSuite::class, 'laravel-vault-suite');
 
     artisan('vault:unseal', [
         '--file' => '/path/does/not/exist',
@@ -60,11 +60,11 @@ it('fails when the provided key file cannot be read', function () {
 });
 
 it('fails when no keys are supplied', function () {
-    $mock = M::mock(LaravelSecretsManager::class);
+    $mock = M::mock(LaravelVaultSuite::class);
     $mock->shouldNotReceive('unseal');
 
-    app()->instance(LaravelSecretsManager::class, $mock);
-    app()->alias(LaravelSecretsManager::class, 'secrets-manager');
+    app()->instance(LaravelVaultSuite::class, $mock);
+    app()->alias(LaravelVaultSuite::class, 'laravel-vault-suite');
 
     artisan('vault:unseal')->assertExitCode(1);
 });

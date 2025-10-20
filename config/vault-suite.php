@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'default' => env('SECRETS_MANAGER_DRIVER', 'vault'),
+    'default' => env('VAULT_SUITE_DRIVER', 'vault'),
 
     /*
     |--------------------------------------------------------------------------
@@ -32,10 +32,10 @@ return [
     */
 
     'bootstrap' => [
-        'enabled' => env('SECRETS_MANAGER_BOOTSTRAP', false),
+        'enabled' => env('VAULT_SUITE_BOOTSTRAP', false),
         'paths' => [],
-        'driver' => env('SECRETS_MANAGER_BOOTSTRAP_DRIVER'),
-        'fail_on_missing' => env('SECRETS_MANAGER_FAIL_ON_MISSING', true),
+        'driver' => env('VAULT_SUITE_BOOTSTRAP_DRIVER'),
+        'fail_on_missing' => env('VAULT_SUITE_FAIL_ON_MISSING', true),
     ],
 
     /*
@@ -49,9 +49,9 @@ return [
     */
 
     'cache' => [
-        'enabled' => env('SECRETS_MANAGER_CACHE', false),
-        'store' => env('SECRETS_MANAGER_CACHE_STORE'),
-        'ttl' => env('SECRETS_MANAGER_CACHE_TTL', 300),
+        'enabled' => env('VAULT_SUITE_CACHE', false),
+        'store' => env('VAULT_SUITE_CACHE_STORE'),
+        'ttl' => env('VAULT_SUITE_CACHE_TTL', 300),
     ],
 
     /*

@@ -1,6 +1,6 @@
 <?php
 
-namespace Deepdigs\LaravelSecretsManager\Contracts;
+namespace Deepdigs\LaravelVaultSuite\Contracts;
 
 interface SecretsDriver
 {

@@ -1,6 +1,6 @@
 <?php
 
-use Deepdigs\LaravelSecretsManager\Tests\TestCase;
+use Deepdigs\LaravelVaultSuite\Tests\TestCase;
 use Mockery as M;
 
 uses(TestCase::class)->in(__DIR__);

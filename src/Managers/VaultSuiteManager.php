@@ -1,16 +1,16 @@
 <?php
 
-namespace Deepdigs\LaravelSecretsManager\Managers;
+namespace Deepdigs\LaravelVaultSuite\Managers;
 
-use Deepdigs\LaravelSecretsManager\Contracts\SecretsDriver;
-use Deepdigs\LaravelSecretsManager\Drivers\Vault\VaultSecretsDriver;
+use Deepdigs\LaravelVaultSuite\Contracts\SecretsDriver;
+use Deepdigs\LaravelVaultSuite\Drivers\Vault\VaultSecretsDriver;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Http\Client\Factory as HttpFactory;
 use Illuminate\Support\Manager;
 use InvalidArgumentException;
 
-class SecretsManagerManager extends Manager
+class VaultSuiteManager extends Manager
 {
     public function __construct(Container $container)
     {

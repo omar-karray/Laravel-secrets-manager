@@ -1,8 +1,8 @@
 <?php
 
-namespace Deepdigs\LaravelSecretsManager\Commands;
+namespace Deepdigs\LaravelVaultSuite\Commands;
 
-use Deepdigs\LaravelSecretsManager\LaravelSecretsManager;
+use Deepdigs\LaravelVaultSuite\LaravelVaultSuite;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
 
@@ -17,7 +17,7 @@ class VaultUnsealCommand extends Command
 
     protected $description = 'Submit key shards to unseal the configured Vault backend';
 
-    public function handle(LaravelSecretsManager $secretsManager): int
+    public function handle(LaravelVaultSuite $secretsManager): int
     {
         $keys = $this->gatherKeys();
 

@@ -1,15 +1,15 @@
 <?php
 
-use Deepdigs\LaravelSecretsManager\LaravelSecretsManager;
+use Deepdigs\LaravelVaultSuite\LaravelVaultSuite;
 use Mockery as M;
 
 use function Pest\Laravel\artisan;
 
 it('parses command options and forwards them to the secrets manager', function () {
-    $mock = M::mock(LaravelSecretsManager::class);
+    $mock = M::mock(LaravelVaultSuite::class);
 
-    app()->instance(LaravelSecretsManager::class, $mock);
-    app()->alias(LaravelSecretsManager::class, 'secrets-manager');
+    app()->instance(LaravelVaultSuite::class, $mock);
+    app()->alias(LaravelVaultSuite::class, 'laravel-vault-suite');
 
     $mock->shouldReceive('enableSecretsEngine')
         ->once()
@@ -36,10 +36,10 @@ it('parses command options and forwards them to the secrets manager', function (
 });
 
 it('casts option values and forwards seal wrap flag', function () {
-    $mock = M::mock(LaravelSecretsManager::class);
+    $mock = M::mock(LaravelVaultSuite::class);
 
-    app()->instance(LaravelSecretsManager::class, $mock);
-    app()->alias(LaravelSecretsManager::class, 'secrets-manager');
+    app()->instance(LaravelVaultSuite::class, $mock);
+    app()->alias(LaravelVaultSuite::class, 'laravel-vault-suite');
 
     $mock->shouldReceive('enableSecretsEngine')
         ->once()

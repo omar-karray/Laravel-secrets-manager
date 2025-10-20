@@ -1,8 +1,8 @@
 <?php
 
-namespace Deepdigs\LaravelSecretsManager\Commands;
+namespace Deepdigs\LaravelVaultSuite\Commands;
 
-use Deepdigs\LaravelSecretsManager\LaravelSecretsManager;
+use Deepdigs\LaravelVaultSuite\LaravelVaultSuite;
 use Illuminate\Console\Command;
 
 class VaultEnableSecretsEngineCommand extends Command
@@ -19,7 +19,7 @@ class VaultEnableSecretsEngineCommand extends Command
 
     protected $description = 'Enable a secrets engine on the configured Vault backend';
 
-    public function handle(LaravelSecretsManager $secretsManager): int
+    public function handle(LaravelVaultSuite $secretsManager): int
     {
         $path = (string) $this->argument('path');
 

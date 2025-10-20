@@ -1,6 +1,6 @@
 <?php
 
-namespace Deepdigs\LaravelSecretsManager\Database\Factories;
+namespace Deepdigs\LaravelVaultSuite\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
