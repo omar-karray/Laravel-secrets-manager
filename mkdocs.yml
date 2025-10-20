@@ -1,8 +1,8 @@
-site_name: Laravel Secrets Manager
-site_description: Pro-grade secrets management tooling for Laravel backed by Vault and OpenBao.
-site_url: https://omar-karray.github.io/Laravel-secrets-manager/
-repo_url: https://github.com/omar-karray/Laravel-secrets-manager
-repo_name: omar-karray/Laravel-secrets-manager
+site_name: Laravel Vault Suite
+site_description: Pro-grade vault-backed secrets tooling for Laravel with multi-backend support.
+site_url: https://omar-karray.github.io/laravel-vault-suite/
+repo_url: https://github.com/omar-karray/laravel-vault-suite
+repo_name: omar-karray/laravel-vault-suite
 theme:
   name: material
   features:

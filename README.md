@@ -1,12 +1,12 @@
-# Laravel Secrets Manager
+# Laravel Vault Suite
 
-[![CI](https://github.com/omar-karray/Laravel-secrets-manager/actions/workflows/run-tests.yml/badge.svg)](https://github.com/omar-karray/Laravel-secrets-manager/actions/workflows/run-tests.yml)
+[![CI](https://github.com/omar-karray/laravel-vault-suite/actions/workflows/run-tests.yml/badge.svg)](https://github.com/omar-karray/laravel-vault-suite/actions/workflows/run-tests.yml)
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/deepdigs/laravel-secrets-manager.svg?style=flat-square)](https://packagist.org/packages/deepdigs/laravel-secrets-manager)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/omar-karray/Laravel-secrets-manager/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/omar-karray/Laravel-secrets-manager/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/omar-karray/Laravel-secrets-manager/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/omar-karray/Laravel-secrets-manager/actions?query=workflow%3A%22Fix+PHP+code+style+issues%22+branch%3Amain)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/deepdigs/laravel-vault-suite.svg?style=flat-square)](https://packagist.org/packages/deepdigs/laravel-vault-suite)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/omar-karray/laravel-vault-suite/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/omar-karray/laravel-vault-suite/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/omar-karray/laravel-vault-suite/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/omar-karray/laravel-vault-suite/actions?query=workflow%3A%22Fix+PHP+code+style+issues%22+branch%3Amain)
 
-Laravel Secrets Manager connects your Laravel applications to dedicated secrets backends such as HashiCorp Vault and OpenBao. It ships with an extensible driver system, an expressive facade, and artisan tooling so you can read, write, and manage secrets without copying values into `.env` files.
+Laravel Vault Suite connects your Laravel applications to dedicated secrets backends such as HashiCorp Vault and OpenBao. It ships with an extensible driver system, an expressive facade, and artisan tooling so you can read, write, and manage secrets without copying values into `.env` files.
 
 ## Features
 
@@ -19,19 +19,19 @@ Laravel Secrets Manager connects your Laravel applications to dedicated secrets 
 ## Installation
 
 ```bash
-composer require deepdigs/laravel-secrets-manager
+composer require deepdigs/laravel-vault-suite
 ```
 
 Publish the configuration file to tailor drivers and bootstrap behaviour:
 
 ```bash
-php artisan vendor:publish --tag="laravel-secrets-manager-config"
+php artisan vendor:publish --tag="vault-suite-config"
 ```
 
 Add the relevant environment variables in your `.env` file (or server configuration):
 
 ```dotenv
-SECRETS_MANAGER_DRIVER=vault
+VAULT_SUITE_DRIVER=vault
 VAULT_ADDR=http://127.0.0.1:8200
 VAULT_TOKEN=your-root-or-app-token
 VAULT_ENGINE_MOUNT=secret
@@ -43,21 +43,21 @@ VAULT_ENGINE_VERSION=2
 Read a secret as an array:
 
 ```php
-use Deepdigs\LaravelSecretsManager\Facades\LaravelSecretsManager;
+use Deepdigs\LaravelVaultSuite\Facades\LaravelVaultSuite;
 
-$database = LaravelSecretsManager::fetch('apps/laravel/database');
+$database = LaravelVaultSuite::fetch('apps/laravel/database');
 ```
 
 Read a specific key from the secret payload:
 
 ```php
-$password = LaravelSecretsManager::fetch('apps/laravel/database', 'password');
+$password = LaravelVaultSuite::fetch('apps/laravel/database', 'password');
 ```
 
 Write or update a secret:
 
 ```php
-LaravelSecretsManager::put('apps/laravel/database', [
+LaravelVaultSuite::put('apps/laravel/database', [
     'username' => 'laravel',
     'password' => 'new-password',
 ]);
@@ -66,7 +66,7 @@ LaravelSecretsManager::put('apps/laravel/database', [
 List secret keys beneath a path:
 
 ```php
-$keys = LaravelSecretsManager::list('apps/laravel');
+$keys = LaravelVaultSuite::list('apps/laravel');
 ```
 
 ## Artisan commands
@@ -86,7 +86,7 @@ See [docs/commands.md](docs/commands.md) for the full option reference.
 
 - Use a multi-root VS Code workspace that includes this package and your Laravel app.
 - Register the package as a [Composer path repository](https://getcomposer.org/doc/05-repositories.md#path) for hot-linked development.
-- Only run `composer update deepdigs/laravel-secrets-manager` after changing this package’s `composer.json` or autoloading configuration.
+- Only run `composer update deepdigs/laravel-vault-suite` after changing this package’s `composer.json` or autoloading configuration.
 - When tagging for production use, publish to Packagist and update your application to use the release tag instead of the path repository.
 
 ## Testing

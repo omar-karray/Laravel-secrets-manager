@@ -20,7 +20,7 @@ class LaravelVaultSuiteServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('laravel-vault-suite')
-            ->hasConfigFile()
+            ->hasConfigFile('vault-suite')
             ->hasCommands([
                 VaultUnsealCommand::class,
                 VaultEnableSecretsEngineCommand::class,
@@ -39,6 +39,6 @@ class LaravelVaultSuiteServiceProvider extends PackageServiceProvider
             return new LaravelVaultSuite($app->make(VaultSuiteManager::class));
         });
 
-        $this->app->alias(LaravelVaultSuite::class, 'laravel-vault-suite');
+        $this->app->alias(LaravelVaultSuite::class, 'LaravelVaultSuite');
     }
 }

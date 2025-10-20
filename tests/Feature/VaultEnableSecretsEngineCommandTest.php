@@ -9,7 +9,7 @@ it('parses command options and forwards them to the secrets manager', function (
     $mock = M::mock(LaravelVaultSuite::class);
 
     app()->instance(LaravelVaultSuite::class, $mock);
-    app()->alias(LaravelVaultSuite::class, 'laravel-vault-suite');
+    app()->alias(LaravelVaultSuite::class, 'LaravelVaultSuite');
 
     $mock->shouldReceive('enableSecretsEngine')
         ->once()
@@ -39,7 +39,7 @@ it('casts option values and forwards seal wrap flag', function () {
     $mock = M::mock(LaravelVaultSuite::class);
 
     app()->instance(LaravelVaultSuite::class, $mock);
-    app()->alias(LaravelVaultSuite::class, 'laravel-vault-suite');
+    app()->alias(LaravelVaultSuite::class, 'LaravelVaultSuite');
 
     $mock->shouldReceive('enableSecretsEngine')
         ->once()

@@ -19,7 +19,7 @@ class VaultSuiteManager extends Manager
 
     public function getDefaultDriver()
     {
-        return $this->configRepository()->get('secrets-manager.default', 'vault');
+        return $this->configRepository()->get('vault-suite.default', 'vault');
     }
 
     /**
@@ -49,7 +49,7 @@ class VaultSuiteManager extends Manager
 
     protected function createDriver($driver)
     {
-        $config = $this->configRepository()->get("secrets-manager.drivers.{$driver}");
+        $config = $this->configRepository()->get("vault-suite.drivers.{$driver}");
 
         if (is_null($config)) {
             throw new InvalidArgumentException("Secrets manager driver [{$driver}] is not configured.");
