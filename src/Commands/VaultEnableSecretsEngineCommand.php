@@ -68,11 +68,13 @@ class VaultEnableSecretsEngineCommand extends Command
         $parsed = [];
 
         foreach ($options as $option) {
-            if (! is_string($option) || ! str_contains($option, '=')) {
+            $optionString = (string) $option;
+
+            if (! str_contains($optionString, '=')) {
                 continue;
             }
 
-            [$key, $value] = array_map('trim', explode('=', $option, 2));
+            [$key, $value] = array_map('trim', explode('=', $optionString, 2));
 
             if ($key === '') {
                 continue;

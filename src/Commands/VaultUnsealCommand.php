@@ -66,6 +66,12 @@ class VaultUnsealCommand extends Command
 
         $fileOption = $this->option('file');
 
+        if (is_array($fileOption)) {
+            $this->error('Multiple file values are not supported.');
+
+            return null;
+        }
+
         if (is_string($fileOption) && $fileOption !== '') {
             if (! is_readable($fileOption)) {
                 $this->error(sprintf('Unable to read unseal keys from [%s].', $fileOption));
