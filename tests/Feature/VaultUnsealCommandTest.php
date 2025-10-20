@@ -2,6 +2,7 @@
 
 use Deepdigs\LaravelSecretsManager\LaravelSecretsManager;
 use Mockery as M;
+
 use function Pest\Laravel\artisan;
 
 it('reads unseal keys from a file when requested', function () {

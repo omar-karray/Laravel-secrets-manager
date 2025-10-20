@@ -39,7 +39,7 @@ class LaravelSecretsManager
     /**
      * Persist secret data to the backend.
      *
-     * @param array<string, mixed> $payload
+     * @param  array<string, mixed>  $payload
      */
     public function put(string $path, array $payload, array $options = [], ?string $driver = null): array
     {
@@ -77,8 +77,7 @@ class LaravelSecretsManager
     /**
      * Attempt to unseal the backend by submitting key shards sequentially.
      *
-     * @param string[] $keys
-     *
+     * @param  string[]  $keys
      * @return array<string, mixed>
      */
     public function unseal(array $keys, array $options = [], ?string $driver = null): array
@@ -109,8 +108,7 @@ class LaravelSecretsManager
     /**
      * Enable a secrets engine for the backend.
      *
-     * @param array<string, mixed> $settings
-     *
+     * @param  array<string, mixed>  $settings
      * @return array<string, mixed>
      */
     public function enableSecretsEngine(string $type, string $path, array $settings = [], array $options = [], ?string $driver = null): array

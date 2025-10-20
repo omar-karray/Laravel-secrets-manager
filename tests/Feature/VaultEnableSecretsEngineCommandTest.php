@@ -2,6 +2,7 @@
 
 use Deepdigs\LaravelSecretsManager\LaravelSecretsManager;
 use Mockery as M;
+
 use function Pest\Laravel\artisan;
 
 it('parses command options and forwards them to the secrets manager', function () {
