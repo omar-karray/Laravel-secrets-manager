@@ -28,16 +28,9 @@ class LaravelVaultSuiteServiceProvider extends PackageServiceProvider
 
     public function packageRegistered(): void
     {
-        $this->app->singleton(VaultSuiteManager::class, function ($app) {
-            return new VaultSuiteManager($app);
-        });
-
+        $this->app->singleton(VaultSuiteManager::class);
         $this->app->alias(VaultSuiteManager::class, 'vault-suite.manager');
-
-        $this->app->singleton(LaravelVaultSuite::class, function ($app) {
-            return new LaravelVaultSuite($app->make(VaultSuiteManager::class));
-        });
-
+        $this->app->singleton(LaravelVaultSuite::class);
         $this->app->alias(LaravelVaultSuite::class, 'LaravelVaultSuite');
     }
 }
