@@ -1,5 +1,7 @@
 # Laravel Secrets Manager
 
+[![CI](https://github.com/omar-karray/Laravel-secrets-manager/actions/workflows/run-tests.yml/badge.svg)](https://github.com/omar-karray/Laravel-secrets-manager/actions/workflows/run-tests.yml)
+
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/deepdigs/laravel-secrets-manager.svg?style=flat-square)](https://packagist.org/packages/deepdigs/laravel-secrets-manager)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/omar-karray/Laravel-secrets-manager/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/omar-karray/Laravel-secrets-manager/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/omar-karray/Laravel-secrets-manager/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/omar-karray/Laravel-secrets-manager/actions?query=workflow%3A%22Fix+PHP+code+style+issues%22+branch%3Amain)

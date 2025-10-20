@@ -1,0 +1,10 @@
+name: release-tests
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  run-tests:
+    uses: ./.github/workflows/run-tests.yml
