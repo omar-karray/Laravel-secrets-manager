@@ -2,9 +2,9 @@
 
 namespace Deepdigs\LaravelVaultSuite\Tests;
 
+use Deepdigs\LaravelVaultSuite\LaravelVaultSuiteServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Deepdigs\LaravelVaultSuite\LaravelVaultSuiteServiceProvider;
 
 class TestCase extends Orchestra
 {
