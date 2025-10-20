@@ -2,9 +2,9 @@
 
 namespace Deepdigs\LaravelSecretsManager\Tests;
 
+use Deepdigs\LaravelSecretsManager\LaravelSecretsManagerServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Deepdigs\LaravelSecretsManager\LaravelSecretsManagerServiceProvider;
 
 class TestCase extends Orchestra
 {

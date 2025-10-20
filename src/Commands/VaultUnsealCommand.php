@@ -25,9 +25,10 @@ class VaultUnsealCommand extends Command
             if ($keys !== null) {
                 $this->error('No unseal keys were provided.');
             }
+
             return self::FAILURE;
         }
-        
+
         $options = [
             'reset' => (bool) $this->option('reset'),
             'migrate' => (bool) $this->option('migrate'),
@@ -89,8 +90,7 @@ class VaultUnsealCommand extends Command
     }
 
     /**
-     * @param array<int, string|null> $keys
-     *
+     * @param  array<int, string|null>  $keys
      * @return array<int, string>
      */
     protected function normalizeKeys(array $keys): array

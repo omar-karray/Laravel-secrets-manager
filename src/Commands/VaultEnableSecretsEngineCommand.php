@@ -60,8 +60,7 @@ class VaultEnableSecretsEngineCommand extends Command
     }
 
     /**
-     * @param array<int, string> $options
-     *
+     * @param  array<int, string>  $options
      * @return array<string, mixed>
      */
     protected function parseKeyValueOptions(array $options): array

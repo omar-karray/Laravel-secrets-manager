@@ -10,20 +10,19 @@ interface SecretsDriver
      * @return array<string, mixed>
      */
     /**
-     * @param array<string, mixed> $options
+     * @param  array<string, mixed>  $options
      */
     public function read(string $path, array $options = []): array;
 
     /**
      * Write or update secret data at the given path.
      *
-     * @param array<string, mixed> $payload
-     *
+     * @param  array<string, mixed>  $payload
      * @return array<string, mixed>
      */
     /**
-     * @param array<string, mixed> $payload
-     * @param array<string, mixed> $options
+     * @param  array<string, mixed>  $payload
+     * @param  array<string, mixed>  $options
      */
     public function write(string $path, array $payload, array $options = []): array;
 
@@ -31,7 +30,7 @@ interface SecretsDriver
      * Delete a secret at the given path.
      */
     /**
-     * @param array<string, mixed> $options
+     * @param  array<string, mixed>  $options
      */
     public function delete(string $path, array $options = []): void;
 
@@ -41,7 +40,7 @@ interface SecretsDriver
      * @return array<int, string>
      */
     /**
-     * @param array<string, mixed> $options
+     * @param  array<string, mixed>  $options
      */
     public function list(string $path, array $options = []): array;
 
@@ -51,7 +50,7 @@ interface SecretsDriver
      * @return array<string, mixed>
      */
     /**
-     * @param array<string, mixed> $options
+     * @param  array<string, mixed>  $options
      */
     public function sealStatus(array $options = []): array;
 
@@ -61,20 +60,19 @@ interface SecretsDriver
      * @return array<string, mixed>
      */
     /**
-     * @param array<string, mixed> $options
+     * @param  array<string, mixed>  $options
      */
     public function submitUnsealKey(string $key, array $options = []): array;
 
     /**
      * Enable or configure a secrets engine at the given mount path.
      *
-     * @param array<string, mixed> $settings
-     *
+     * @param  array<string, mixed>  $settings
      * @return array<string, mixed>
      */
     /**
-     * @param array<string, mixed> $settings
-     * @param array<string, mixed> $options
+     * @param  array<string, mixed>  $settings
+     * @param  array<string, mixed>  $options
      */
     public function enableSecretsEngine(string $type, string $path, array $settings = [], array $options = []): array;
 }
