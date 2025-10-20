@@ -89,8 +89,6 @@ class LaravelVaultSuite
             return $status;
         }
 
-        $options = $options ?? [];
-
         foreach ($keys as $index => $key) {
             $perKeyOptions = $options;
             $perKeyOptions['reset'] = (bool) Arr::get($options, 'reset', false) && $index === 0;

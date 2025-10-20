@@ -64,24 +64,22 @@ class VaultUnsealCommand extends Command
     {
         $keys = $this->normalizeKeys(Arr::wrap($this->argument('keys')));
 
-        $file = $this->option('file');
+        $fileOption = $this->option('file');
 
-        if ($file) {
-            if (! is_string($file) || $file === '') {
-                $this->error('The provided key file path is invalid.');
-
-                return null;
-            }
-
-            if (! is_readable($file)) {
-                $this->error(sprintf('Unable to read unseal keys from [%s].', $file));
+        if (is_string($fileOption) && $fileOption !== '') {
+            if (! is_readable($fileOption)) {
+                $this->error(sprintf('Unable to read unseal keys from [%s].', $fileOption));
 
                 return null;
             }
 
-            $fileKeys = $this->normalizeKeys(file($file, FILE_IGNORE_NEW_LINES) ?: []);
+            $fileKeys = $this->normalizeKeys(file($fileOption, FILE_IGNORE_NEW_LINES) ?: []);
 
             $keys = array_merge($keys, $fileKeys);
+        } elseif ($fileOption !== null && $fileOption !== '') {
+            $this->error('The provided key file path is invalid.');
+
+            return null;
         }
 
         $keys = array_values(array_unique(array_filter($keys, fn ($key) => $key !== '')));
@@ -96,13 +94,9 @@ class VaultUnsealCommand extends Command
     protected function normalizeKeys(array $keys): array
     {
         return array_values(array_filter(array_map(function ($key) {
-            if (! is_string($key)) {
-                return null;
-            }
+            $trimmed = is_string($key) ? trim($key) : null;
 
-            $trimmed = trim($key);
-
-            if ($trimmed === '' || str_starts_with($trimmed, '#')) {
+            if ($trimmed === null || $trimmed === '' || str_starts_with($trimmed, '#')) {
                 return null;
             }
 
