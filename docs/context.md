@@ -2,25 +2,22 @@
 
 ## Vision
 
-`deepdigs/laravel-vault-suite` provides a unified way for Laravel applications to consume runtime secrets from dedicated backends such as HashiCorp Vault and OpenBao. The package focuses on:
+`deepdigs/laravel-vault-suite` provides a unified way for Laravel applications to consume runtime secrets from dedicated backends such as HashiCorp Vault and OpenBao. The primary goals are:
 
-- Removing secrets from `.env` files and storing them inside a central, auditable backend.
-- Offering a fluent PHP API and facade for reading, writing, listing, and deleting secrets.
-- Supporting operational workflows such as unsealing Vault and enabling engines through artisan commands.
-- Providing an extensible driver system so additional Vault-compatible (or custom) backends can be added without changing application code.
+- Replace `.env` secrets with centrally managed vault entries.
+- Offer operational workflows (unseal, engine management) directly inside Artisan.
+- Expose a simple contract so additional secret backends can be added without modifying application code.
 
 ## Core Components
 
-- **Vault Suite (`LaravelVaultSuite`)** – High-level service that resolves drivers, performs reads/writes, manages unseal workflows, and exposes convenience helpers to the rest of the application.
+- **Vault Suite (`LaravelVaultSuite`)** – High-level service/facade that resolves drivers, performs reads/writes, manages unseal workflows, and exposes convenience helpers to the rest of the application.
 - **Driver Manager (`VaultSuiteManager`)** – Extends Laravel’s driver pattern to construct and cache driver instances based on configuration.
 - **Vault Driver (`Drivers\Vault\VaultSecretsDriver`)** – HTTP client that speaks the Vault/OpenBao API for common KV operations, unsealing, and enabling engines.
-- **Commands**
-  - `vault:unseal` – Submit key shards to unseal the backend.
-  - `vault:enable-engine` – Mount and configure secrets engines.
+- **Commands** – `vault:unseal`, `vault:enable-engine`, and future operational helpers built on top of the service layer.
 - **Configuration (`config/vault-suite.php`)** – Declares drivers, bootstrap behaviour, and caching options.
-- **Bootstrap Blueprint (coming soon)** – A service provider hook that will hydrate environment variables during app boot using configured paths.
+- **Bootstrap Blueprint (roadmap)** – A service provider hook that will hydrate environment variables during app boot using configured paths.
 
-Refer to [docs/commands.md](commands.md) for detailed command usage and option reference.
+Refer to [docs/commands.md](commands.md) for detailed command usage and [docs/api.md](api.md) for programmatic access.
 
 ## Planned Drivers & Backends
 
@@ -31,10 +28,11 @@ Refer to [docs/commands.md](commands.md) for detailed command usage and option r
 ## Roadmap
 
 1. **Bootstrapper** – Implement the runtime bootstrap that maps configured secret paths to environment variables and caches results when enabled.
-2. **Write/Delete/List Coverage** – Finalise driver methods and add higher-level helpers (e.g. batch writes, secret version rollback).
-3. **Authentication Strategies** – Add AppRole, OIDC, and Kubernetes auth helpers for Vault/OpenBao.
-4. **Additional Commands** – Helpers for sealing, rotating tokens, syncing secrets, and running health checks.
-5. **Driver Contracts** – Publish guidance and helpers for authoring third-party drivers.
+2. **Authentication Strategies** – Add AppRole, OIDC, and Kubernetes auth helpers for Vault/OpenBao.
+3. **Additional Commands** – Helpers for sealing, rotating tokens, syncing secrets, and running health checks.
+4. **Driver Contracts** – Publish guidance and helpers for authoring third-party drivers.
+
+Progress is tracked on GitHub issues and in the [Changelog](changelog.md).
 
 ## Local Development Workflow
 
@@ -61,7 +59,7 @@ Run the test suite via `composer test`. When working against Vault/OpenBao local
 
 ## Security Notes
 
-- Never commit real tokens or unseal keys into version control – lean on `.env` and secret stores instead.
+- Never commit real tokens or unseal keys into version control—lean on `.env` management and secret stores instead.
 - Enable TLS verification in production and pin CA certificates where possible.
 - Regularly rotate Vault tokens and leverage short-lived credentials.
 

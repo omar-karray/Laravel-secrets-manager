@@ -8,13 +8,15 @@
 
 Laravel Vault Suite connects your Laravel applications to dedicated secrets backends such as HashiCorp Vault and OpenBao. It ships with an extensible driver system, an expressive facade, and artisan tooling so you can read, write, and manage secrets without copying values into `.env` files.
 
+📘 Documentation: https://omar-karray.github.io/laravel-vault-suite/
+
 ## Features
 
-- Driver manager for Vault-compatible backends (Vault, OpenBao out of the box).
-- Fluent API and facade to fetch, write, list, and delete secrets.
-- Secrets bootstrapper blueprint for loading environment variables at runtime.
-- Artisan commands to unseal Vault and enable secrets engines.
-- Extensible configuration for additional drivers and advanced HTTP options.
+- **Command-first operations** – Ship-ready Artisan commands (`vault:unseal`, `vault:enable-engine`, …) for the tasks operators and developers run every day.
+- **Fluent PHP API** – Fetch, write, list, and delete secrets through a clean service/facade when you need programmatic access.
+- **Multi-backend driver manager** – Vault and OpenBao out of the box with an extensible contract for additional backends.
+- **Configuration & bootstrap blueprint** – Centralise driver settings today and hydrate Laravel configuration at runtime as the bootstrapper lands.
+- **Documentation site** – [Guides on GitHub Pages](https://omar-karray.github.io/laravel-vault-suite/) cover installation, commands, configuration, and the API surface.
 
 ## Installation
 

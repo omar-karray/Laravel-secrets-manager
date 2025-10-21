@@ -16,6 +16,8 @@ nav:
   - Getting Started: getting-started.md
   - Operations:
       - Artisan Commands: commands.md
+      - Configuration Reference: configuration.md
+      - Programmatic API: api.md
   - Architecture: context.md
   - Integrations:
       - RawDigs Core App: integration/rawdigs-core-app.md
