@@ -39,7 +39,8 @@ Check the [Artisan Commands](commands.md) guide for a breakdown of every flag, e
 - **[Getting Started](getting-started.md)** – Preconditions, installation paths (Packagist and path repo), and first-run validation.
 - **[Artisan Commands](commands.md)** – Detailed reference for the operational CLI surface.
 - **[Configuration Reference](configuration.md)** – Complete explanation of `config/vault-suite.php`, environment variables, caching, and bootstrap mapping.
-- **[Programmatic API](api.md)** – Working with the service container, facade, and driver manager from pure PHP.
+ - **[Programmatic API](api.md)** – Working with the service container, facade, and driver manager from pure PHP.
+- **[Tutorials](tutorials.md)** – End-to-end walkthroughs covering CLI workflows, configuration loading, and database credential security.
 - **[Architecture](context.md)** – Internal design, driver creation, and roadmap.
 - **[Integrations](integration/rawdigs-core-app.md)** – Wiring the suite into the RawDigs multi-root workspace.
 - **[Deployment](deployment.md)** – Building and publishing these docs to GitHub Pages.

@@ -119,3 +119,85 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+## Guide: using Vault Suite in development
+
+1. **Install & publish config** (see Installation above). Populate `VAULT_ADDR`, `VAULT_TOKEN`, and mount settings in `.env` or your secret manager.
+2. **Verify connectivity**
+   ```bash
+   php artisan vault:status
+   php artisan vault:enable-engine secret/apps --option=version=2
+   ```
+3. **Load existing secrets or commit new ones**
+   ```bash
+   php artisan vault:read secret/apps/database --json
+   ```
+   Write new values from PHP:
+   ```php
+   use Deepdigs\LaravelVaultSuite\LaravelVaultSuite;
+
+   app(LaravelVaultSuite::class)->put('secret/apps/database', [
+       'username' => 'laravel',
+       'password' => Str::random(32),
+   ]);
+   ```
+4. **Script it** – combine commands in deployment pipelines (e.g. run `vault:list` to confirm a rotation, then fetch credentials for tests).
+
+## Guide: loading configuration from Vault
+
+Until the bootstrapper ships, load secrets in a service provider or dedicated config loader:
+
+```php
+use Deepdigs\LaravelVaultSuite\LaravelVaultSuite;
+
+class VaultConfigServiceProvider extends ServiceProvider
+{
+    public function boot(LaravelVaultSuite $vault): void
+    {
+        if (! app()->environment('production')) {
+            return;
+        }
+
+        $database = $vault->fetch('secret/apps/database');
+
+        config([
+            'database.connections.mysql.username' => $database['username'],
+            'database.connections.mysql.password' => $database['password'],
+        ]);
+    }
+}
+```
+
+> ℹ️ When the bootstrapper lands, you will be able to map these keys directly inside `config/vault-suite.php` and hydrate them during `config:cache`.
+
+## Guide: securing database credentials with Vault
+
+1. **Create/mount a KV engine** dedicated to database credentials:
+   ```bash
+   php artisan vault:enable-engine database/credentials --type=kv --option=version=2
+   ```
+2. **Store the credentials** from an operator machine or CI job:
+   ```bash
+   php artisan vault:read database/credentials/mysql-root --json   # verify
+   ```
+   Or programmatically via Laravel Vault Suite:
+   ```php
+   $vault->put('database/credentials/mysql-app', [
+       'username' => 'app',
+       'password' => Str::random(40),
+   ]);
+   ```
+3. **Load credentials into Laravel** at runtime (see provider example above) or inject them into environment variables before `config:cache`.
+4. **Rotate safely**: rotate the credential in Vault (`put` new password), then redeploy the application so it fetches the updated secret. Combine with Vault’s DB secrets engine if you want automated rotation.
+
+### Deployment pattern
+
+- Run `php artisan vault:status` during health checks.
+- If Vault is sealed, run `vault:unseal` with the key shards available to your SRE team or automation.
+- Re-run `config:cache` after updating configuration if you load secrets at boot.
+
+### Tips
+
+- Never check tokens or key shards into source control. Use your CI/CD secret store.
+- Grant the Laravel application a limited token (e.g. via AppRole) scoped to the paths it needs.
+- Combine the suite with Vault’s audit logging to track access.

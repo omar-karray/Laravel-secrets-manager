@@ -13,11 +13,12 @@ theme:
     - search.highlight
 nav:
   - Introduction: index.md
-  - Getting Started: getting-started.md
+   - Getting Started: getting-started.md
   - Operations:
       - Artisan Commands: commands.md
       - Configuration Reference: configuration.md
       - Programmatic API: api.md
+      - Tutorials: tutorials.md
   - Architecture: context.md
   - Integrations:
       - RawDigs Core App: integration/rawdigs-core-app.md
