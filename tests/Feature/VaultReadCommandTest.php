@@ -2,6 +2,7 @@
 
 use Deepdigs\LaravelVaultSuite\LaravelVaultSuite;
 use Mockery as M;
+
 use function Pest\Laravel\artisan;
 
 it('reads a full secret payload', function () {
@@ -38,5 +39,5 @@ it('reads a specific key and prints JSON when requested', function () {
         '--engine-version' => 2,
         '--json' => true,
     ])->expectsOutputToContain('"super-secret"')
-      ->assertExitCode(0);
+        ->assertExitCode(0);
 });

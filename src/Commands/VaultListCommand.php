@@ -4,7 +4,6 @@ namespace Deepdigs\LaravelVaultSuite\Commands;
 
 use Deepdigs\LaravelVaultSuite\LaravelVaultSuite;
 use Illuminate\Console\Command;
-use Illuminate\Support\Arr;
 
 class VaultListCommand extends Command
 {
