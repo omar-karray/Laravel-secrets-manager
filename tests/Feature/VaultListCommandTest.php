@@ -2,6 +2,7 @@
 
 use Deepdigs\LaravelVaultSuite\LaravelVaultSuite;
 use Mockery as M;
+
 use function Pest\Laravel\artisan;
 
 it('lists secrets for a path', function () {

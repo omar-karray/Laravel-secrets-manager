@@ -2,6 +2,7 @@
 
 use Deepdigs\LaravelVaultSuite\LaravelVaultSuite;
 use Mockery as M;
+
 use function Pest\Laravel\artisan;
 
 it('displays vault seal status', function () {
