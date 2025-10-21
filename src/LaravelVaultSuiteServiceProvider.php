@@ -3,6 +3,9 @@
 namespace Deepdigs\LaravelVaultSuite;
 
 use Deepdigs\LaravelVaultSuite\Commands\VaultEnableSecretsEngineCommand;
+use Deepdigs\LaravelVaultSuite\Commands\VaultListCommand;
+use Deepdigs\LaravelVaultSuite\Commands\VaultReadCommand;
+use Deepdigs\LaravelVaultSuite\Commands\VaultStatusCommand;
 use Deepdigs\LaravelVaultSuite\Commands\VaultUnsealCommand;
 use Deepdigs\LaravelVaultSuite\Managers\VaultSuiteManager;
 use Spatie\LaravelPackageTools\Package;
@@ -23,6 +26,9 @@ class LaravelVaultSuiteServiceProvider extends PackageServiceProvider
             ->hasCommands([
                 VaultUnsealCommand::class,
                 VaultEnableSecretsEngineCommand::class,
+                VaultStatusCommand::class,
+                VaultListCommand::class,
+                VaultReadCommand::class,
             ]);
     }
 

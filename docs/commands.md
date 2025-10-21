@@ -1,11 +1,24 @@
 # Artisan Commands
 
-Laravel Vault Suite ships with operational commands for the workflows engineers run daily. Commands are auto-registered by the service provider once the package is installed.
+Laravel Vault Suite ships with operational commands for the workflows engineers run daily. Each command accepts a `--driver` flag so you can target any backend defined in `config/vault-suite.php`.
 
-Before you begin:
+Before running commands:
 
-- Ensure your vault backend is reachable from the environment running the command (`VAULT_ADDR`, `VAULT_TOKEN`, …).
-- If you need a different backend per command, pass `--driver=<name>`; the driver must be configured under `config/vault-suite.php`.
+- Ensure the backend is reachable (`VAULT_ADDR`, `VAULT_TOKEN`, …).
+- Use service accounts with least-privilege policies.
+- If you need to switch backends per command, supply `--driver=<name>`.
+
+---
+
+## `vault:status`
+
+Shows the current seal status of the configured backend.
+
+```bash
+php artisan vault:status --driver=openbao
+```
+
+The command prints cluster information and whether additional key shares are required. Exit code is always `0`; check the `Sealed` column for state.
 
 ---
 
@@ -17,38 +30,15 @@ Submit key shares to unseal a Vault/OpenBao cluster.
 php artisan vault:unseal key1 key2 key3
 ```
 
-### Options
-
-| Flag | Description |
+| Argument / Option | Description |
 | --- | --- |
-| `keys*` argument | One or more key shares passed inline. The command submits them sequentially. |
-| `--file=` | Path to a newline-separated file containing key shares. Comments starting with `#` are ignored. |
-| `--driver=` | Override the backend driver for this run (defaults to the configuration’s `default`). |
-| `--reset` | Reset the unseal process before submitting the first key. Useful when vault reports partial progress from a previous attempt. |
-| `--migrate` | Pass the `migrate` flag to the backend when migrating seal types. |
+| `keys*` | Key shares passed inline; they are submitted sequentially. |
+| `--file=` | Path to newline-separated key shares (comments starting with `#` are ignored). |
+| `--driver=` | Override the backend driver (defaults to configuration). |
+| `--reset` | Reset the unseal process before providing key shares. |
+| `--migrate` | Pass the `migrate` flag when changing seal types. |
 
-### Example
-
-```bash
-php artisan vault:unseal --file=storage/keys/unseal.txt --reset
-```
-
-Typical output:
-
-```
-Vault remains sealed. Progress: 2/3 key shares submitted.
-```
-
-If the backend is successfully unsealed you will see:
-
-```
-Vault has been unsealed successfully.
-```
-
-**Exit codes**
-
-- `0` – Vault is unsealed.
-- `1` – Vault remains sealed or the command could not read the provided keys.
+Exit codes: `0` when unsealed, `1` when the backend remains sealed or keys cannot be read.
 
 ---
 
@@ -60,54 +50,65 @@ Enable or reconfigure a secrets engine.
 php artisan vault:enable-engine secret/apps --option=version=2
 ```
 
-### Options
-
-| Flag | Description |
+| Option | Description |
 | --- | --- |
-| `path` argument | The mount path for the engine (e.g. `secret/apps`). |
-| `--type=` | Engine type (defaults to `kv`). |
+| `path` (argument) | Mount path for the secrets engine. |
+| `--type=` | Engine type (`kv`, `database`, …). Defaults to `kv`. |
 | `--driver=` | Backend driver override. |
-| `--description=` | Optional mount description. |
-| `--option=` | Key/value pair forwarded to `options`. Repeat for multiple options (e.g. `--option=allowed_roles="app,worker"`). |
-| `--config=` | Key/value pair forwarded to the engine `config`. Repeat as required (e.g. `--config=default_lease_ttl=3600`). |
-| `--local` | Mount locally on the targeted node only. |
-| `--seal-wrap` | Enable seal wrapping for the mounted engine. |
+| `--description=` | Optional human-friendly description. |
+| `--option=` | Key/value forwarded to the engine `options` (repeatable). |
+| `--config=` | Key/value forwarded to engine `config` (repeatable). |
+| `--local` | Mount locally on the current node only. |
+| `--seal-wrap` | Enable seal wrapping for the engine. |
 
-### Casting values
-
-Boolean strings (`true`, `false`), `null`, and numeric values are automatically cast. Quoted strings preserve punctuation:
-
-```bash
-php artisan vault:enable-engine database/creds \
-    --type=database \
-    --option='allowed_roles="app,worker"' \
-    --config=max_lease_ttl=7200 \
-    --seal-wrap
-```
-
-### Exit codes
-
-- `0` – Engine mounted or reconfigured successfully.
-- `1` – Validation or API error (the command writes the backend error payload to the console).
+Boolean strings (`true`, `false`), `null`, and numerics are automatically cast. Quote complex strings: `--option='allowed_roles="app,worker"'`.
 
 ---
 
-## Choosing a driver per command
+## `vault:list`
 
-All commands accept `--driver=<name>` to target a backend defined in `config/vault-suite.php`:
+List secrets beneath a path.
 
 ```bash
-php artisan vault:enable-engine secret/apps --driver=openbao
+php artisan vault:list secret/apps --driver=openbao --engine-version=1
 ```
 
-Drivers share the same interface, so adding a custom backend via `VaultSuiteManager::extend()` automatically makes it available to the CLI.
+| Option | Description |
+| --- | --- |
+| `path` (argument) | Secret path to list. |
+| `--driver=` | Backend driver override. |
+| `--mount=` | Override the mount configured in `config/vault-suite.php`. |
+| `--engine-version=` | KV engine version (`1` or `2`). |
+
+Outputs each key on its own line. Directories are suffixed with `/` following Vault’s API conventions.
 
 ---
 
-## Coming soon
+## `vault:read`
 
-- Authentication helpers (AppRole, OIDC, Kubernetes) to mint tokens prior to running commands.
-- Commands for secret rotation and health checks.
-- Bootstrapper integration to hydrate Laravel configuration during `artisan config:cache`.
+Fetch a secret (or a specific key within it).
 
-Track progress in the [Architecture](context.md) section or on the GitHub issue tracker.
+```bash
+php artisan vault:read secret/apps/database --key=password --json
+```
+
+| Option | Description |
+| --- | --- |
+| `path` (argument) | Secret path to read. |
+| `--key=` | Return a single key from the secret payload. |
+| `--driver=` | Backend driver override. |
+| `--mount=` | Override the mount configured in `config/vault-suite.php`. |
+| `--engine-version=` | KV engine version (`1` or `2`). |
+| `--json` | Output raw JSON instead of table formatting. |
+
+When `--key` is not supplied, the command prints each key/value pair. Use `--json` for machine-readable output.
+
+---
+
+## Tips
+
+- All commands return `0` on success and `1` on validation/backend failure (except `vault:status`, which always succeeds and leaves state inspection to you).
+- Combine commands inside shell scripts or CI jobs to automate vault operations during deployments.
+- Need a feature that is not exposed yet? The underlying [Programmatic API](api.md) gives you full access to the service layer.
+
+Future additions—auth helpers, secret rotation, health checks—are tracked on the project roadmap.
