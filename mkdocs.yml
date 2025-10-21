@@ -3,17 +3,50 @@ site_description: Pro-grade vault-backed secrets tooling for Laravel with multi-
 site_url: https://omar-karray.github.io/laravel-vault-suite/
 repo_url: https://github.com/omar-karray/laravel-vault-suite
 repo_name: omar-karray/laravel-vault-suite
+logo: assets/logo.svg
+favicon: assets/favicon.svg
+extra_css:
+  - styles/overrides.css
+  - styles/landing.css
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/omar-karray/laravel-vault-suite
+      name: GitHub
+    - icon: fontawesome/solid/cloud-download-alt
+      link: https://packagist.org/packages/deepdigs/laravel-vault-suite
+      name: Packagist
+    - icon: material/book-open-page-variant
+      link: https://omar-karray.github.io/laravel-vault-suite/
+      name: Documentation
 theme:
   name: material
+  font:
+    text: Inter
+    code: "Fira Code"
   features:
     - navigation.sections
     - navigation.expand
     - navigation.top
     - search.suggest
     - search.highlight
+    - toc.integrate
+  palette:
+    - scheme: default
+      primary: blue grey
+      accent: light blue
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      primary: blue grey
+      accent: light blue
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
 nav:
-  - Introduction: index.md
-   - Getting Started: getting-started.md
+  - Home: index.md
+  - Getting Started: getting-started.md
   - Operations:
       - Artisan Commands: commands.md
       - Configuration Reference: configuration.md

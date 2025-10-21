@@ -1,0 +1,19 @@
+<svg width="1200" height="320" viewBox="0 0 1200 320" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#2563eb" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="rgba(14,165,233,0.25)"/>
+      <stop offset="100%" stop-color="rgba(37,99,235,0.15)"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="320" fill="#0f172a" rx="32"/>
+  <rect x="40" y="40" width="1120" height="240" fill="url(#grad2)" rx="24"/>
+  <circle cx="180" cy="160" r="100" fill="url(#grad)" opacity="0.6"/>
+  <circle cx="1020" cy="120" r="80" fill="url(#grad)" opacity="0.35"/>
+  <circle cx="900" cy="220" r="60" fill="url(#grad)" opacity="0.25"/>
+  <text x="380" y="150" fill="#e2e8f0" font-size="42" font-weight="700">Laravel Vault Suite</text>
+  <text x="380" y="200" fill="#94a3b8" font-size="22">Command-first secrets management for Laravel backed by Vault & OpenBao</text>
+</svg>
